@@ -59,8 +59,8 @@ function simulate() {
         oldWave[nextLineOffset + j] +
         oldWave[prevLineOffset + j]
       ) / 3 - wave[lineOffset + j];
-      if (Math.random() < 0.00005) {
-        val = 1 / Math.log(i + 1) * Math.random() / 2;
+      if (Math.random() < 0.0001) {
+        val = 1 / Math.log(i + 1) * Math.random() / 3;
         if (Math.random() < 0.1 && (i / height < .1)) {
           val = Math.random();
         }
