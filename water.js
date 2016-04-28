@@ -62,7 +62,7 @@ function simulate() {
       if (Math.random() < 0.0001) {
         val = 1 / Math.log(i + 1) * Math.random() / 3;
         if (Math.random() < 0.1 && (i / height < .1)) {
-          val = Math.random();
+          val = 1;
         }
       }
       wave[lineOffset + j] = val * .999;
