@@ -7,7 +7,6 @@ var timer = -1;
 
 var dc = null;
 var canvas = null;
-var imageData = null;
 
 var activeBuffer = 0;
 
@@ -78,6 +77,7 @@ function simulate() {
     }
   }
   dc.putImageData(image, 0, 0);
+  delete image.data;
 }
 
 (function () {
