@@ -4,11 +4,20 @@ var width = 400;
 var height = 300;
 
 var timer = -1;
+var drawTimer = -1;
 
 var dc = null;
 var canvas = null;
 
 var activeBuffer = 0;
+
+var oldWave;
+var wave;
+var lineOffset;
+var prevLineOffset;
+var nextLineOffset;
+var image;
+var val;
 
 var waveBuffers = [new Float32Array(width * height), new Float32Array(width * height)];
 
@@ -20,24 +29,25 @@ for (var i = 0; i < height; i++) {
 function setupCanvasAndStartSimulation() {
   canvas = document.getElementById("2dwaveDC");
   dc = canvas.getContext("2d");
+  image = dc.getImageData(0, 0, width, height);
   if (timer === -1) {
     timer = setInterval(function () {
       simulate();
     }, 60);
   }
+  if (drawTimer === -1) {
+  	timer = setInterval(function () {
+    	draw();
+    }, 13);
+  }
   return true;
 }
 
-var oldWave;
-var wave;
-var lineOffset;
-var prevLineOffset;
-var nextLineOffset;
-var image;
-var val;
+function draw() {
+  dc.putImageData(image, 0, 0);
+}
 
 function simulate() {
-  image = dc.getImageData(0, 0, width, height);
   wave = waveBuffers[activeBuffer];
   activeBuffer = (activeBuffer + 1) % 2;
   oldWave = waveBuffers[activeBuffer];
@@ -76,8 +86,6 @@ function simulate() {
       image.data[4 * (lineOffset + j) + 3] = color;
     }
   }
-  dc.putImageData(image, 0, 0);
-  delete image.data;
 }
 
 (function () {
